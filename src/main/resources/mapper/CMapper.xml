@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间 namespace 全球唯一 包 -->
+<mapper namespace="com.humengyuan.mapper.ConMapper">
+
+	<insert id="addCol" parameterType="com.humengyuan.bean.Columnl">
+		INSERT INTO
+		columnl(cid,czi,cmiaos,cname,cshangp,cadd,czhuc,ctime,ctai,yaertime,cbeiz)
+		VALUES(#{cid},#{czi},#{cmiaos},#{cname},#{cshangp},#{cadd},#{czhuc},#{ctime},#{ctai},#{yaertime},#{cbeiz});
+	</insert>
+
+	<!-- 查询所有 -->
+	<select id="list" parameterType="map" resultType="com.humengyuan.bean.Columnl">
+		select * from columnl
+		<where>
+			<if test="cmiaos!=null and cmiaos!=''">
+				and cmiaos like"%${cmiaos}%"
+			</if>
+			<if test="czi!=null and czi!= ''">
+				and czi like "%${czi}%"
+			</if>
+			<if test="cname!=null and cname!=''">
+				and cname like "%${cname}%"
+			</if>
+			<if test="cshangp!=null and cshangp!=''">
+				and cshangp like "%${cshangp}%"
+			</if>
+			<if test="cadd!=null and cadd!=''">
+				and cadd like "%${cadd}%"
+			</if>
+			<!-- <if test="start!=null and end!=''"> ctime BETWEEN start AND end </if> -->
+		</where>
+	</select>
+	<!-- 回显 -->
+	<select id="xian" resultType="int">
+		select * from columnl where
+		cid=#{cid}
+	</select>
+	<!-- 修改 -->
+	<update id="upd" parameterType="com.humengyuan.bean.Columnl">
+		UPDATE columnl SET
+		czi=#{czi},cmiaos=#{cmiaos},cname=#{cname},cshangp=#{cshangp},cadd=#{cadd},czhuc=#{czhuc},yaertime=#{yaertime},ctai=#{ctai},cbeiz=#{cbeiz}
+		WHERE cid=#{cid}
+	</update>
+</mapper>
